@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculadora con Vue.js</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: linear-gradient(to bottom right, #000000, #3f0508);
+    }
+    .calculator {
+      background-color: #ffffff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(255, 0, 0, 1);
+    }
+    .display {
+      font-size: 2em;
+      margin-bottom: 10px;
+      text-align: right;
+    }
+    .buttons {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+    }
+    button {
+      font-size: 2.5em;
+      padding: 20px;
+      border: none;
+      border-radius: 5px;
+      background-color: #6e2929;
+      color: white;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #ff0331;
+    }
+  </style>
+</head>
+<body>
+  <div id="app" class="calculator">
+    <div class="display">{{ display }}</div>
+    <div class="buttons">
+      <button @click="append('7')">7</button>
+      <button @click="append('8')">8</button>
+      <button @click="append('9')">9</button>
+      <button @click="operate('/')">/</button>
+      <button @click="append('4')">4</button>
+      <button @click="append('5')">5</button>
+      <button @click="append('6')">6</button>
+      <button @click="operate('*')">*</button>
+      <button @click="append('1')">1</button>
+      <button @click="append('2')">2</button>
+      <button @click="append('3')">3</button>
+      <button @click="operate('-')">-</button>
+      <button @click="append('0')">0</button>
+      <button @click="clear">C</button>
+      <button @click="calculate">=</button>
+      <button @click="operate('+')">+</button>
+    </div>
+  </div>
+
+  <script>
+    new Vue({
+      el: '#app',
+      data: {
+        display: '',
+      },
+      methods: {
+        append(number) {
+          this.display += number;
+        },
+        operate(op) {
+          this.display += ` ${op} `;
+        },
+        clear() {
+          this.display = '';
+        },
+        calculate() {
+          try {
+            this.display = eval(this.display).toString();
+          } catch {
+            this.display = 'Error';
+          }
+        },
+      },
+    });
+  </script>
+</body>
+</html>
